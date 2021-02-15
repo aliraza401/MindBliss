@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %} 
+
+<div class="login">     
+    <form method="POST" action="">  
+    {% csrf_token %}
+
+    <label>Name</label>
+    <input type="text" name="name" maxlength="100" required id="id_name">
+
+    <label>Email</label>
+    <input type="text" name="email" maxlength="100" required id="id_email">
+
+    <label>Message</label>
+    <textarea name="message" rows="10" required id="id_message"></textarea>
+
+
+
+    <br>
+    <br>
+    <input type="submit" value="Contact Us">   
+  
+    </form>      
+</div>
+
+{% endblock %}
+ 

@@ -1,0 +1,39 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<div class="Searchcontainer">
+  <h3 class="SearchHeadingStyle">Search Psychologist</h3>
+  <div class="margin"></div>
+  <div class="width"></div>
+  <div style="padding: 10px" class="searchDiv">
+    <input
+      class="searchInput"
+      placeholder="&#xF002;"
+      type="text"
+      name="search"
+    />
+    <a href="DoctorList.html" class="searchButton" name="Search" type="submit"
+      >Search</a
+    >
+  </div>
+
+  {% for psychologist in psychologists %}
+	<div class="m-5 b-1 tal " style="padding: 2rem; border: 1px solid gray; color: black !important">
+		<p style="font-weight: bold;"> {{ psychologist.name }} </p>
+		<p> Email: {{ psychologist.email }} </p>
+		<p> Age: {{ psychologist.age }} </p>
+		<p> Gender: {{ psychologist.gender }} </p>
+		<p> contact number: {{ psychologist.contact_number }} </p>
+		<p> session_fee: {{ psychologist.session_fee }} </p>
+		<p> specialization: {{ psychologist.specialization }} </p>
+		<p> degree: {{ psychologist.degree }} </p>
+
+		<a href="{% url 'view_psychologist' psychologist.user.id %}" >View Profile</a>
+
+	</div>
+  {% endfor %}
+
+
+  
+</div>
+
+{% endblock %}

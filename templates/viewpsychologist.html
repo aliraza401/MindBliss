@@ -1,0 +1,87 @@
+{% extends 'base.html' %} 
+{% load auth_extras %}
+
+{% load static %} 
+
+{% block content %}
+
+
+ <!----container----------------------->
+<div class="container">
+	
+		<div class="row">
+    <div class="Profilecard">
+        <center>  <h1> Psychologist Info. </h1> </center>   	
+
+    	
+<table>
+	<tr>
+		<td colspan="2" style="width: 200px;">
+		<span style="font-weight: bold;">Name:</span>	
+		</td>
+		<td style="width: 300px;">{{ psychologist.name }}</td>
+	</tr>
+	<tr>
+		<td colspan="2" style="width: 200px;">
+		<span style="font-weight: bold;">Email:</span>	
+		</td>
+		<td style="width: 300px;">{{psychologist.email}}</td>
+	</tr>
+	<tr>
+		<td colspan="2" style=" width: 200px;">
+		<span style="font-weight: bold;">Age:</span>	
+		</td>
+		<td style="width: 300px;">{{psychologist.age}}</td>
+	</tr>
+	<tr>
+		<td colspan="2" style="width: 200px;">
+		<span style="font-weight: bold;">Session fee:</span>	
+		</td>
+		<td style="width: 300px;">{{psychologist.session_fee}}</td>
+	</tr>
+	<tr>
+		<td colspan="2" style=" width: 200px;">
+		<span style="font-weight: bold;">Degree:</span>	
+		</td>
+		<td style="width: 300px;">{{psychologist.degree}}</td>
+	</tr>
+	<tr>
+		<td colspan="2" style="width: 200px;">
+		<span style="font-weight: bold;">Cell No:</span>	
+		</td>
+		<td style="width:300px;">{{psychologist.contact_number}}</td>
+	</tr>
+</table>
+      
+    </div>
+
+    <div class="ProfileSmallcard" style="margin-top: 20px;">      
+      <h2>About</h2>
+      <p> {{ psychologist.bio }} </p>
+    </div>
+    </div>
+
+
+	<h5 >User Stories</h5>
+	{% for story in stories %}
+		<div class="m-5 b-1 tal" style="padding: 2rem; border: 1px solid gray; color: black">
+			<p style="font-weight: bold">Stars: {{ story.star }}/5</p>
+			<p style="font-weight: bold">Comment: {{ story.comment }}</p>
+			<p>Description: {{ blog.description }}</p>
+		</div>
+	{% empty %}  
+    	<p class="mt-2">No story about this psychologict is posted yet.</p> 
+ 	{% endfor %}
+
+
+  	{% if request.user|has_group:"Paitent" %}
+	 <p><a  href="{% url 'create_userstory' psychologist.user.id %}"  >Write User Story</a></p>
+	{% else %}
+		<p>only paitent can post user stories</p>
+	{% endif %}
+	
+</div>
+</div>
+
+
+{% endblock %}

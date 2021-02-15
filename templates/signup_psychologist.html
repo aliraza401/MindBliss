@@ -1,0 +1,158 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sign Up </title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{
+  height: 500px; 
+ background-image: url("{% static 'img/background5.png' %}");
+
+ background-repeat: repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  margin: 0;  
+    padding: 0;  
+    background-color:white;  
+    font-family: 'monospace';  
+  color: #11223F;
+}
+.container {
+    padding-left: 10px;
+    padding-right: 10px;
+ 
+}
+
+.btn1 {
+  border: 2px;
+  background-color:#FBCCD1;
+  padding: 14px 28px;
+  font-size: 16px;
+font-family:Copperplate;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.register{  
+        width: 500px;
+        overflow: hidden;  
+        margin: auto;  
+        margin: 20 0 0 450px;  
+        padding: 100px;  
+        background:#ffffff;
+        border-radius: 15px ;  
+  width: 500px;
+   box-shadow:0px 4px 21px rgba(0,0,0,0.09);
+  text-align: center;
+}
+
+input[type=text], input[type=password], input[type=email], textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
+  background-color: orange;
+  outline: none;
+}
+ 
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+.registerbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+.registerbtn:hover {
+  opacity: 1;
+}
+
+#id_gender{
+  display: block; 
+    width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+#id_age{
+  display: block;
+    width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+#id_session_fee{
+  display: block;
+    width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+#id_specialization{
+  display: block;
+    width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+#id_degree{
+  display: block;
+    width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+
+</style>
+</head>
+<body>
+<div class="register">
+<form action=""  method="POST">
+  {% csrf_token %}
+  <div class="container">
+  <center>  <h1> Patient Registeration Form</h1> </center>
+  <hr> 
+
+  {{form1}}
+  {{form2}}
+
+  {{form.errors}}
+
+  {% for message in messages %}
+    <p id="messages"> {{message}} </p>
+  {% endfor %} 
+            
+                     
+<input type="submit" name="register" class="btn1" value="Register">
+                        
+</form>
+</div>
+</body>
+</html>

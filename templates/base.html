@@ -1,0 +1,40 @@
+{% load static %}
+<html>
+  <head> 
+    <title>MindBliss</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+  
+  </head>
+  <body style="background-image: url('{% static 'img/background5.png' %}')">
+
+    {% include "Header.html" %}
+
+    {% for message in messages %}
+        <p id="messages" style="color: red; font-size: 24px; font-weight: bold"> {{message}} </p>
+    {% endfor %} 
+
+    {% block content %} 
+    
+    {% endblock %}
+
+    {% include "Footer.html" %}
+
+    <script>
+      $(".slider").owlCarousel({
+        loop: true,
+        autoplay: true,
+        autoplayTimeout: 3000, 
+        autoplayHoverPause: true,
+      });
+    </script>
+  </body>
+</html>
+
+  

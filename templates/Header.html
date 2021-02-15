@@ -1,0 +1,41 @@
+{% load auth_extras %}
+
+<header>
+  <div class="top">
+    <button class="button">
+      <a href="{% url 'contact_us' %}" style="color: white">contact us</a>
+    </button>
+    <img src="#" alt="logo" />
+    <h1>Mind Bliss</h1>
+  </div>
+</header>
+
+<div class="topnav">
+  {% if request.user|has_group:"Psychologist" %}
+    <a href="#" class="">Home</a>
+    <a href="{% url 'serch_psychologist' %}">Search Phychologist</a>
+    <a href="{% url 'view_blogs' %}">Blogs</a>
+    <a href="{% url 'create_blog' %}">Create Blog</a>
+    <a href="#">Psychologist Settings</a>
+    <a href="#">{{ request.user.username }}</a>
+    <a href="{% url 'logout' %}"> Logout </a>
+    <input type="text" placeholder="Search" /> 
+  {% elif request.user|has_group:"Paitent" %}
+    <a href="#" class="">Home</a>
+    <a href="{% url 'serch_psychologist' %}">Search Phychologist</a>
+    <a href="{% url 'view_blogs' %}">Blogs</a>
+    <a href="#">Personality test</a>
+    <a href="#">{{ request.user.username }}</a>
+    <a href="{% url 'logout' %}"> Logout </a>
+    <input type="text" placeholder="Search" />
+  {% else %}
+    <a href="#" class="">Home</a>
+    <a href="#">Search Phychologist</a>
+    <a href="#">Blogs</a>
+    <a href="#">Personality test</a>
+    <a href="{% url 'signup_psychologist' %}">Become Psychologist </a>
+    <a href="{% url 'signup_patient' %}">Become Paitent </a>
+    <a href="{% url 'login' %}"> Login </a>
+    <input type="text" placeholder="Search" />
+  {% endif %}
+</div>
