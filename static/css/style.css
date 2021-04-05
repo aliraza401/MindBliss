@@ -51,7 +51,7 @@ border-radius:25px;
   line-height: 20px;
 }
 .card  .content p{
-  text-align: justify;
+  text-align: justify; 
   margin: 10px 0;
 }
 .card  .content .btn1{
@@ -1661,4 +1661,10 @@ and open the template in the editor.
 
 .tal{
   text-align: left !important;
+}
+
+
+.contant-form-name{
+
+  
 }

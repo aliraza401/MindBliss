@@ -1,0 +1,51 @@
+.w-80 {
+  width: 80% !important;
+}
+
+.w-25 {
+  width: 25% !important;
+}
+
+.bg-pri {
+  background-color: #193c35 !important;
+}
+
+.search-psy-form > * {
+  width: 100%;
+  height: 30px;
+  margin-bottom: 15px !important;
+  color: black !important;
+}
+
+.paitent-psy-form > * {
+  width: 100%;
+  height: 30px;
+  margin-bottom: 15px !important;
+  color: black !important;
+}
+
+.search-psy-form {
+  color: black !important;
+}
+
+.top buttton {
+  width: 150px;
+  display: flex;
+  justify-content: center;
+}
+
+.top buttton a { 
+  text-decoration: none;
+}
+
+.text-start {
+  text-align: start !important;
+}
+
+.footer-distributed {
+  padding: 20px 50px;
+}
+
+.footer-company-name{
+    text-align: right !important;
+}

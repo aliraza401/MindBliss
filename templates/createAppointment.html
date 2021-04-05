@@ -1,0 +1,52 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<div class="login">
+
+  <h5 class="text-start">Doctor reserved Appointments</h5>
+  {% for appointment in appointments %}
+    {% comment %} {% if appointment.date|date:"d M Y" > now %} {% endcomment %}
+    <p class="text-start"> {{ appointment.date }} - {{ appointment.time }}  </p>
+    {% comment %} {% endif %} {% endcomment %}
+  {% endfor %} 
+
+  <hr>
+
+  <h5 class="text-center mt-3">Create Appointment</h5>
+  <form method="POST" action=""> 
+    {% csrf_token %}
+    <label for="id_time">Time:</label>
+    {% comment %} <input type="time" min="09:00" max="18:00" > {% endcomment %}
+
+    <select name="time" required="" id="id_time" class="form-control w-100">
+      <option value="09:00:00" > 09 AM </option>
+      <option value="10:00:00" > 10 AM </option>
+      <option value="11:00:00" > 11 AM </option>
+      <option value="12:00:00" > 12 PM </option>
+      <option value="13:00:00" > 01 PM </option>
+      <option value="14:00:00" > 02 PM </option>
+      <option value="15:00:00" > 03 PM </option>
+      <option value="16:00:00" > 04 PM </option>
+      <option value="17:00:00" > 05 PM </option>
+      <option value="118:00:00" > 06 PM </option>
+    </select>
+
+    <label for="id_date">Date:</label>
+    <input type="date" name="date" required="" min="2020-01-01" max="2025-01-01" id="id_date" class="form-control w-100">
+
+    <br />
+    <br />
+    <input type="submit" value="Book Appointmentz" />
+  </form>
+
+  <script>
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementsByName("date")[0].setAttribute('min', today);
+
+    var maxDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 14 ).toISOString().split('T')[0];
+    document.getElementsByName("date")[0].setAttribute('max', maxDate);
+  </script>
+
+
+</div>
+
+{% endblock %}

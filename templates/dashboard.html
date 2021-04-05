@@ -1,78 +1,30 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block content %} 
-
+{% extends 'base.html' %} {% load static %} {% block content %}
 
 <div class="header">
-<h4><center>Get help<h4>
-<h4>or online conselling now</h4></center>
-<br>
-<center><button class="btn"><a href="login.html"><b>JOIN US</button></a>
+  <h4>Get help</h4>
+  <h4>or online conselling now</h4>
 </div>
-<br>
-<br>
-<br>
-<br>
 
-<h3>Popular Topics on Mind Bliss </h3>
-<br>
-
+<h3>Popular Topics on Mind Bliss</h3>
 
 <div class="slider owl-carousel">
-      <div class="card">
-        <div class="img">
-<img src=" image/conditions anxiety.jpg" alt=""></div>
-<div class="content">
-          <div class="title">
-Anxiety</div>
+  <div class="card w-75 m-auto">
+    <div class="img">
+      <img src=" {% static 'img/conditions anxiety.jpg' %}" alt="" />
+    </div>
+    <div class="content">
+      <div class="title">Anxiety</div>
 
-<div class="btn1">
-          <center>  <button>Read more</button><center>
+      <div class="btn1 text-center">
+        <button>Read more</button>
+      </div>
+    </div>
+  </div>
 </div>
-
-</div>
-</div>
-<div class="card">
-        <div class="img">
-<img src="image/support for carers.jpg" alt=""></div>
-<div class="content">
-          <div class="title">
-Deppression</div>
-<p> xjsakdhskjdh<p>
-
-</div>
-</div>
-<div class="card">
-        <div class="img">
-<img src="image/how to support someone card2x80.jpg" alt=""></div>
-<div class="content">
-          <div class="title">
-Domestic Voilence</div>
-<div class="btn1">
-      <center>      <button>Read more</button> </center>
-          </div>
-
-</div>
-
-</div>
-
-</div><br>
-<br><br>
 <div class="exploring">
-<h6> Start Exploring Mind Bliss</h6>
-<br>
-<p> Mind bliss will help you to solve your mental issues easily</p>
-<p> Now you dont have to worry about what society will say about you</p>
+  <h6>Start Exploring Mind Bliss</h6>
+  <p>Mind bliss will help you to solve your mental issues easily</p>
+  <p>Now you dont have to worry about what society will say about you</p>
 </div>
-<br>
-<br>
-
-
 
 {% endblock %}
-
-
-
-
-

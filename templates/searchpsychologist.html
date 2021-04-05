@@ -5,15 +5,26 @@
   <div class="margin"></div>
   <div class="width"></div>
   <div style="padding: 10px" class="searchDiv">
-    <input
+    {% comment %} <input
       class="searchInput"
-      placeholder="&#xF002;"
-      type="text"
+      placeholder="Enter category to search"
       name="search"
     />
-    <a href="DoctorList.html" class="searchButton" name="Search" type="submit"
+    <a href="DoctorList.html" class="searchButton" name="Search" type="submit" style="height: 48px;"
       >Search</a
-    >
+    > {% endcomment %} 
+
+    <form class="search-psy-form">
+        {{ MyFilter.form.specialization.label }}
+        {{ MyFilter.form.specialization }}
+        {{ MyFilter.form.degree.label }}
+        {{ MyFilter.form.degree }}
+        <input type="submit" class="bg-pri text-white" >
+   {% comment %} {{ request.get_full_path }} {% endcomment %}
+    </form>
+
+
+  
   </div>
 
   {% for psychologist in psychologists %}
@@ -22,7 +33,6 @@
 		<p> Email: {{ psychologist.email }} </p>
 		<p> Age: {{ psychologist.age }} </p>
 		<p> Gender: {{ psychologist.gender }} </p>
-		<p> contact number: {{ psychologist.contact_number }} </p>
 		<p> session_fee: {{ psychologist.session_fee }} </p>
 		<p> specialization: {{ psychologist.specialization }} </p>
 		<p> degree: {{ psychologist.degree }} </p>
@@ -35,5 +45,12 @@
 
   
 </div>
+
+
+
+
+
+
+
 
 {% endblock %}

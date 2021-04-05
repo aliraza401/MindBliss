@@ -2,12 +2,18 @@ from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import CreateUserForm, CreatePaitentForm, CreatePsychologistForm, CreateContactForm, CreateBlogForm, CreateUserStoryForm
+from .forms import CreateUserForm, CreatePaitentForm, CreatePsychologistForm, CreateContactForm, CreateBlogForm, CreateUserStoryForm, CreateAppointmentForm, CreateChargeForm
 from django.contrib.auth.decorators import login_required
 from .decorators import unacthenticated_user, allowed_users
 from django.contrib.auth.models import Group
-from .models import Blog, UserStory, Psychologist, Paitent
+from .models import Blog, UserStory, Psychologist, Patient, Appointment, Charge
 from django.contrib.auth.models import User
+from .filters import PsychologistFilter, BLogFilter, PatientFilter
+import datetime
+import stripe
+from django.urls import reverse
+
+stripe.api_key = "sk_test_51IcSMrLmWwONKM69xFGEVp0xQSOLKrPYxZbGitL5R5YqmrYuaxGg8dNAgUuF2WjVmDFSWEAcGZot4zmlJklnfCiW00cVHg4Cpv"
 
 
 # Create your views here.
@@ -24,8 +30,6 @@ def home(request):
 def about(request):
     template = "about.html"
     context = {}
-
-    return render(request, template, context)
 
 
 @unacthenticated_user
@@ -159,16 +163,37 @@ def ceateBlogView(request):
 
 def viewBlogs(request):
     template = "blog_page.html"
-    blogs = Blog.objects.all().order_by('-id')
-    context = {'blogs': blogs}
+    blogs = Blog.objects.all()
+    MyFilter = BLogFilter(request.GET, queryset=blogs)
+    blogs = MyFilter.qs
 
+    context = {'blogs': blogs, 'filter': MyFilter}
     return render(request, template, context)
 
 
 def searchPsychologist(request):
     template = "searchpsychologist.html"
     psychologists = Psychologist.objects.all().order_by('-id')
-    context = {'psychologists': psychologists}
+
+    MyFilter = PsychologistFilter(
+        request.GET, queryset=psychologists)
+    psychologists = MyFilter.qs
+    print(psychologists)
+
+    context = {'psychologists': psychologists, 'MyFilter': MyFilter}
+
+    return render(request, template, context)
+
+ 
+def searchPatient(request):
+    template = "searchpatient.html"
+    patients = Patient.objects.all()
+
+    MyFilter = PatientFilter(
+        request.GET, queryset=patients)
+    patients = MyFilter.qs
+
+    context = {'patients': patients, 'MyFilter': MyFilter}
 
     return render(request, template, context)
 
@@ -183,7 +208,7 @@ def viewPsychologist(request, id):
 
     return render(request, template, context)
 
- 
+
 def createUserStory(request, id):
     template = "createUserStory.html"
     user = User.objects.get(id=id)
@@ -203,5 +228,81 @@ def createUserStory(request, id):
             return redirect('index')
 
     context = {'form1': form1, "psychologist": psychologist}
+
+    return render(request, template, context)
+
+
+def createAppointment(request, id):
+    template = "createAppointment.html"
+    user = User.objects.get(id=id)
+    psychologist = Psychologist.objects.get(user=user)
+    today = datetime.date.today()
+    appointments = Appointment.objects.filter(
+        psychologist=user, date__range=[today, today + datetime.timedelta(days=14)])
+
+    form1 = CreateAppointmentForm()
+
+    if request.method == 'POST':
+        form1 = CreateAppointmentForm(request.POST)
+        print("invalid", form1)
+        if form1.is_valid():
+            appointment = form1.save(commit=False)
+            appointment.paitent = request.user
+            appointment.psychologist = user
+            print(appointment.date)
+            print(appointment.time)
+
+            for app in appointments:
+                if app.date == appointment.date and app.time == appointment.time:
+                    messages.success(
+                        request, "doctor appointment alredy exists, please choose other date")
+                    return render(request, template, {'form1': form1, "appointments": appointments})
+
+            appointment.save()
+            # messages.success(
+            #     request, "appointment reserved, pleasy ")
+            app = int(appointment.id)
+            return redirect(reverse('charge', kwargs={"id": app}))
+
+    context = {'form1': form1, "appointments": appointments}
+
+    return render(request, template, context)
+
+ 
+def charge(request, id):
+    template = "charge.html"
+    patient = Patient.objects.get(user=request.user)
+    appointment = Appointment.objects.get(id=id)
+
+    if request.method == 'POST':
+        print(request.POST)
+
+        customer = stripe.Customer.create(
+            email=patient.email,
+            name=patient.name,
+            source=request.POST['stripeToken']
+        )
+
+        charge = stripe.Charge.create(
+            customer=customer,
+            amount=1000,
+            currency="usd",
+            description="appointment fee"
+        )
+
+        chargeModel = Charge(
+            amount = charge.amount/100,
+            currency = charge.currency,
+            description = charge.description,
+            appointment = appointment
+        )
+
+        chargeModel.save()
+        messages.success(
+                request, "Appointment created success")
+        return redirect('index')
+
+
+    context = {}
 
     return render(request, template, context)

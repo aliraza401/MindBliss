@@ -45,12 +45,12 @@
 		</td>
 		<td style="width: 300px;">{{psychologist.degree}}</td>
 	</tr>
-	<tr>
+	{% comment %} <tr>
 		<td colspan="2" style="width: 200px;">
 		<span style="font-weight: bold;">Cell No:</span>	
 		</td>
 		<td style="width:300px;">{{psychologist.contact_number}}</td>
-	</tr>
+	</tr> {% endcomment %}
 </table>
       
     </div>
@@ -58,8 +58,23 @@
     <div class="ProfileSmallcard" style="margin-top: 20px;">      
       <h2>About</h2>
       <p> {{ psychologist.bio }} </p>
+    </div> 
     </div>
-    </div>
+
+	<div class="bg-white py-5">
+	  	{% if request.user|has_group:"Paitent" %}
+		<p class="text-start"><a  href="{% url 'create_appointment' psychologist.user.id %}">Book Appointment</a></p>
+		{% else %}
+			<p  class="text-start">only paitent can book Appointment with psychologict</p>
+		{% endif %}
+
+
+		{% if request.user|has_group:"Paitent" %}
+		<p class="text-start"><a  href="{% url 'create_userstory' psychologist.user.id %}">Write User Story</a></p>
+		{% else %}
+			<p class="text-start">only paitent can post user stories</p>
+		{% endif %}
+	</div>
 
 
 	<h5 >User Stories</h5>
@@ -72,13 +87,9 @@
 	{% empty %}  
     	<p class="mt-2">No story about this psychologict is posted yet.</p> 
  	{% endfor %}
+  
 
 
-  	{% if request.user|has_group:"Paitent" %}
-	 <p><a  href="{% url 'create_userstory' psychologist.user.id %}"  >Write User Story</a></p>
-	{% else %}
-		<p>only paitent can post user stories</p>
-	{% endif %}
 	
 </div>
 </div>

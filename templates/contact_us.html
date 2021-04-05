@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block content %} 
-
-<div class="login">     
+ 
+<div class="login">      
     <form method="POST" action="">  
     {% csrf_token %}
 
-    <label>Name</label>
+    <label class="contant-form-name">Name</label>
     <input type="text" name="name" maxlength="100" required id="id_name">
 
     <label>Email</label>
@@ -15,9 +15,6 @@
 
     <label>Message</label>
     <textarea name="message" rows="10" required id="id_message"></textarea>
-
-
-
     <br>
     <br>
     <input type="submit" value="Contact Us">   

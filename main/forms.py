@@ -1,5 +1,5 @@
 from django import forms
-from .models import Paitent, Psychologist, ContactForm, Blog, UserStory
+from .models import Patient, Psychologist, ContactForm, Blog, UserStory, Appointment, Charge
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -12,7 +12,7 @@ class CreateUserForm(UserCreationForm):
 
 class CreatePaitentForm(forms.ModelForm):
     class Meta:
-        model = Paitent
+        model = Patient
         fields = '__all__'
         exclude = [ 'user' ]
 
@@ -35,12 +35,12 @@ class CreateContactForm(forms.ModelForm):
     class Meta:
         model = ContactForm
         fields = '__all__'
-
+ 
 
 class CreateBlogForm(forms.ModelForm):
-    class Meta:
+    class Meta: 
         model = Blog
-        fields = '__all__'
+        fields = '__all__' 
         exclude = ['psychologist_id']
 
 
@@ -51,4 +51,15 @@ class CreateUserStoryForm(forms.ModelForm):
         exclude = ['paitent', 'psychologist']
 
 
+class CreateAppointmentForm(forms.ModelForm):
+    class Meta: 
+        model = Appointment
+        fields = '__all__'
+        exclude = ['paitent', 'psychologist', 'approved']
 
+
+class CreateChargeForm(forms.ModelForm):
+    class Meta:
+        model = Charge
+        fields = '__all__'
+  

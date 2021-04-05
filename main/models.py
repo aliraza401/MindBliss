@@ -2,11 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
-class Paitent(models.Model):
+class Patient(models.Model):
     genderOption = (
         ('Male', 'Male'),
         ('Female', 'Female'),
-        ('Other', 'Other')
+        ('Other', 'Other') 
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=50, null=True)
@@ -20,7 +20,7 @@ class Paitent(models.Model):
     def __str__(self):
         return self.name
 
-
+ 
 class Psychologist(models.Model):
     genderOption = (
         ('Male', 'Male'),
@@ -91,7 +91,7 @@ class UserStory(models.Model):
     comment = models.TextField(max_length=1500, default='.')
 
     def __str__(self):
-        return self.comment 
+        return self.comment  
 
 
 class Blog(models.Model):
@@ -109,5 +109,30 @@ class ContactForm(models.Model):
     email = models.CharField(max_length=100)
     message = models.CharField(max_length=100)
 
-    def __str__(self):
+    def __str__(self): 
         return self.message
+ 
+ 
+class Appointment(models.Model):
+    psychologist = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, default="" , related_name='assignee1')
+    paitent = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, default="", related_name='creator1')
+    time = models.TimeField()
+    date = models.DateField()
+    approved = models.BooleanField(default=False)
+
+    # def __str__(self): 
+    #     return self.time
+ 
+
+class Charge(models.Model):
+    appointment = models.ForeignKey(
+        Appointment, on_delete=models.SET_NULL, null=True, default="")
+    amount = models.CharField(max_length=100)
+    currency = models.CharField(max_length=100)
+    description = models.CharField(max_length=500)
+
+    # def __str__(self):
+    #     return description
+   

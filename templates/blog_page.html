@@ -1,28 +1,35 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 
 <div class="Searchcontainer">
-  <h3 class="SearchHeadingStyle">Search Blog</h3>
+  <h3 class="SearchHeadingStyle">Blogs</h3>
   <div class="margin"></div>
   <div class="width"></div>
-  <div style="padding: 10px" class="searchDiv">
+  {% comment %} <div style="padding: 10px" class="searchDiv">
     <input
       class="searchInput"
       placeholder="&#xF002;"
-      type="text"
+      type="text" 
       name="search"
     />
     <a href="DoctorList.html" class="searchButton" name="Search" type="submit"
       >Search</a
     >
-  </div>
+  </div> {% endcomment %} 
 
-  {% for blog in blogs %}
-  <div class="m-5 b-1 tal" style="padding: 2rem; border: 1px solid gray; color: black">
-    <p style="font-weight: bold">Title: {{ blog.title }}</p>
-    <p style="font-weight: bold">Psychologist: {{ blog.psychologist_id }}</p>
-    <p>Description: {{ blog.description }}</p>
-  </div>
-  {% endfor %}
+  <form method="GET" class="d-flex">
+    {% comment %} {{ filter.form.as_p  }} {% endcomment %}
+    <input type="text" name="title" id="id_title" class="form-control" style="width: 75% !important">
+    <input type="submit" class="bg-pri text-white rounded" style="width: 25% !important">
+  </form>
+
+    {% for blog in blogs %}
+      <div class="m-5 b-1 tal" style="padding: 2rem; border: 1px solid gray; color: black">
+        <p style="font-weight: bold">Title: {{ blog.title }}</p>
+        <p style="font-weight: bold">Psychologist: {{ blog.psychologist_id }}</p>
+        <p><span class="fw-bold">Description:</span> {{ blog.description }}</p>
+      </div>  
+    {% endfor %}  
+
 </div>
 
 {% endblock %}
