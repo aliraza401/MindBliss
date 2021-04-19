@@ -19,8 +19,8 @@
 
     {% include "Header.html" %}
 
-    {% for message in messages %}
-        <p id="messages" style="color: red; font-size: 24px; font-weight: bold"> {{message}} </p>
+    {% for message in messages %} 
+        <p id="messages" style="color: red; font-size: 24px; font-weight: bold; "> {{message}} </p>
     {% endfor %} 
 
     {% block content %} 
@@ -41,6 +41,8 @@
       $('textarea').addClass('form-control');
       $('input[type=text]').addClass('w-100');
       $('input[type=submit]').addClass('w-100');
+      $('input[type=submit]').addClass('btn');
+      $('input[type=submit]').addClass('btn-outline-primary');
     </script>
   </body>
 </html>

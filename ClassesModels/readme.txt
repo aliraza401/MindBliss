@@ -1,0 +1,1 @@
+The classes have two functions to either to take in values seperately or as an array from a form which ever way you want. Sample forms are already created.

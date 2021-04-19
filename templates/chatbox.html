@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<div class="login text-center ">      
+  <h4 class="mb-4">Chat with patient</h4>
+
+{% for patient in patient_list %}
+    <a  href="{% url 'chatpatient' patient.id %}"  style="    width: 100%;">
+     {{ patient }} 
+   </a>
+  <br>
+  <br>
+{% endfor %}
+
+
+</div>
+{% endblock %}
+ 

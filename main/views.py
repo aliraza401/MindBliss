@@ -12,6 +12,8 @@ from .filters import PsychologistFilter, BLogFilter, PatientFilter
 import datetime
 import stripe
 from django.urls import reverse
+from ClassesModels.Anxiety import *
+from ClassesModels.Bipolar import *
 
 stripe.api_key = "sk_test_51IcSMrLmWwONKM69xFGEVp0xQSOLKrPYxZbGitL5R5YqmrYuaxGg8dNAgUuF2WjVmDFSWEAcGZot4zmlJklnfCiW00cVHg4Cpv"
 
@@ -184,7 +186,7 @@ def searchPsychologist(request):
 
     return render(request, template, context)
 
- 
+
 def searchPatient(request):
     template = "searchpatient.html"
     patients = Patient.objects.all()
@@ -268,7 +270,7 @@ def createAppointment(request, id):
 
     return render(request, template, context)
 
- 
+
 def charge(request, id):
     template = "charge.html"
     patient = Patient.objects.get(user=request.user)
@@ -291,18 +293,66 @@ def charge(request, id):
         )
 
         chargeModel = Charge(
-            amount = charge.amount/100,
-            currency = charge.currency,
-            description = charge.description,
-            appointment = appointment
+            amount=charge.amount/100,
+            currency=charge.currency,
+            description=charge.description,
+            appointment=appointment
         )
 
         chargeModel.save()
         messages.success(
-                request, "Appointment created success")
+            request, "Appointment created success")
         return redirect('index')
-
 
     context = {}
 
+    return render(request, template, context)
+
+
+def doctorChat(request, id):
+    template = "chatdoc.html"
+    user = User.objects.get(id=id)
+    psychologist = Psychologist.objects.get(user=user)
+
+    context = {"psychologist": psychologist}
+    return render(request, template, context)
+
+
+def chatBox(request):
+    template = "chatbox.html"
+    patient_list = User.objects.filter(groups__name='Paitent').order_by("-id")
+
+    context = {"patient_list": patient_list}
+    return render(request, template, context)
+
+
+def patientChat(request, id):
+    template = "chatpatient.html"
+    user = User.objects.get(id=id)
+    patient = Patient.objects.get(user=user)
+
+    context = {"patient": patient}
+
+    return render(request, template, context)
+
+
+def Personality(request):
+    template = "personality.html"
+
+    context = {}
+    return render(request, template, context)
+
+
+def Anxiety(request):
+    template = "Anxiety.html"
+ 
+    if request.method == 'POST':
+        an = anxiety()
+        result = an.anxiety_prediction_with_array(
+            [request.POST['one'], request.POST['two'], request.POST['three'], request.POST['four'], request.POST['five'], request.POST['six'], request.POST['seven']])
+        print(result)
+        messages.success( request, "Result for your test is : " + result)
+        return redirect('index')
+
+    context = {}
     return render(request, template, context)

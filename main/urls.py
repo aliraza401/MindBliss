@@ -10,7 +10,7 @@ urlpatterns = [
     path('signup_psychologist/',  views.signup_psychologist,
          name='signup_psychologist'), 
     path('contact_us/',  views.contactUsView,
-         name='contact_us'),
+         name='contact_us'), 
     path('search_patient/',  views.searchPatient, name='search_patient'),
     path('create_blog/',  views.ceateBlogView,
          name='create_blog'),
@@ -20,13 +20,21 @@ urlpatterns = [
          name='serch_psychologist'),
     path('create_userstory/<int:id>',  views.createUserStory, 
          name='create_userstory'), 
-    path('view_psychologist/<int:id>',
+    path('view_psychologist/<int:id>', 
          views.viewPsychologist, name='view_psychologist'),
     path('create_appointment/<int:id>',
          views.createAppointment, name='create_appointment'),
     path('charge/<int:id>',
          views.charge, name='charge'),
-
-
+    path('chatdoc/<int:id>',  views.doctorChat,
+         name='chatdoc'),
+    path('chatpatient/<int:id>',  views.patientChat,
+         name='chatpatient'),
+    path('chatbox/',  views.chatBox,
+         name='chatbox'),
+    path('anxiety/',  views.Anxiety,
+         name='anxiety'),
+    path('personality/',  views.Personality,
+         name='personality'),
 
 ]

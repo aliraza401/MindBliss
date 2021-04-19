@@ -19,17 +19,17 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 </script>
- 
+
 <script>
-  let user = "{{ request.user.id }}";
-  let psychologist = "{{ psychologist.user.id }}";
+  let user = "{{ patient.user.id }}";
+  let psychologist = "{{ request.user.id }}";
   let userName = "{{ request.user }}";
 
   function sendMessage() {
     var message = document.getElementById("message").value;
 
     firebase.database().ref(`${user}-${psychologist}`).push().set({
-      sender: "PA",
+      sender: "PS",
       message: message,
     });
 
@@ -38,15 +38,17 @@
   }
 
   firebase
-    .database()
+    .database() 
     .ref(`${user}-${psychologist}`)
     .on("child_added", function (snapshot) {
-      let setSender = "";
-      if (snapshot.val().sender == "PA") {
+
+
+      if (snapshot.val().sender == "PS") {
         setSender = "<li class='self'>"   + snapshot.val().message + "</li>";
       } else {
-        setSender = "<li class=''>" + "{{ psychologist.user }}" + ": " + snapshot.val().message + "</li>";
+        setSender = "<li class=''>" + "{{ patient.user }}" + ": " + snapshot.val().message + "</li>";
       }
+
 
       var html = "";
       html += setSender ;
@@ -117,7 +119,7 @@
     {% include "Header.html" %}
 
     <div class="block-chat">
-      <h4 class="mb-4">Chatting with doctor </h4>
+      <h4 class="mb-4">Chatting with patient </h4>
 
       <ul id="messages">
       </ul>
@@ -131,4 +133,3 @@
     {% include "Footer.html" %}
   </body>
 </html>
- 

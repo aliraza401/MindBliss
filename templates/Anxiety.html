@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %} 
+
+<div class="login">    
+    <form id='form' method="POST" style="text-align: left !important;">
+    {% csrf_token %}
+        <p>Q1. Feeling nervous, anxious, or on edge?</p>
+        <label class="mb-4"><input type="radio" name="one" value="1" > Yes </label>
+        <label><input type="radio" name="one" value="0" > No </label>
+
+        <p>Q2. Not being able to stop or control worrying?</p>
+        <label class="mb-4">
+            <input type="radio" name="two" value="1">
+            Yes
+            </label>
+            <label>
+            <input type="radio" name="two" value="0">
+            No
+        </label>    
+
+        <p>Q3. Worrying too much about different things?</p>
+        <label class="mb-4">
+            <input type="radio" name="three" value="1">
+            Yes
+            </label>
+            <label>
+            <input type="radio" name="three" value="0">
+            No
+        </label>
+
+        <p>Q4. Trouble relaxing?</p>
+        <label class="mb-4">
+            <input type="radio" name="four" value="1">
+            Yes
+            </label>
+            <label>
+            <input type="radio" name="four" value="0">
+            No
+        </label> 
+        <p>Q5. Being so restless that it is hard to sit still?</p>
+        <label class="mb-4">
+            <input type="radio" name="five" value="1">
+            Yes
+            </label>
+            <label>
+            <input type="radio" name="five" value="0">
+            No
+        </label>
+        <p>Q6. Becoming easily annoyed or irritable?</p>
+        <label class="mb-4">
+            <input type="radio" name="six" value="1">
+            Yes
+            </label>
+            <label>
+            <input type="radio" name="six" value="0">
+            No
+        </label>
+        <p>Q7. Feeling afraid, as if something awful might happen?</p>
+        <label class="">
+            <input type="radio" name="seven" value="1">
+            Yes
+            </label>
+            <label>
+            <input type="radio" name="seven" value="1">
+            No
+        </label>
+
+        <br>
+        <br>
+        <br>
+        <input type="submit" class="btn btn-outline-primary" value="submit">
+    </form>
+
+</div>
+    
+{% endblock %}
+  

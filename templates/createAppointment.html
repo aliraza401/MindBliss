@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 
-<div class="login">
+<div class="login"> 
 
   <h5 class="text-start">Doctor reserved Appointments</h5>
   {% for appointment in appointments %}
@@ -45,7 +45,7 @@
     var maxDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 14 ).toISOString().split('T')[0];
     document.getElementsByName("date")[0].setAttribute('max', maxDate);
   </script>
-
+ 
 
 </div>
 

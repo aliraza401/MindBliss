@@ -8,14 +8,14 @@
         style="color: white; text-decoration: none"
         >contact us</a
       >
-    </button>
+    </button> 
     <img src="{% static "img/logo.png" %}" style="width: 70px; height: 70px"
     alt="logo" />
     <h1>Mind Bliss</h1>
   </div>
 </header>
 
-<div class="topnav d-flex justify-content-between">
+<div class="topnav d-flex justify-content-between"> 
   {% if request.user|has_group:"Psychologist" %}
   <div>
     <a href="{% url 'index' %}" class="">Home</a>
@@ -23,10 +23,10 @@
     <a href="{% url 'view_blogs' %}">Blogs</a>
     <a href="{% url 'search_patient' %}">Search Patient</a>
     <a href="{% url 'create_blog' %}">Create Blog</a>
-    <a href="#">Psychologist Settings</a>
+    <a href="{% url 'chatbox' %}">Chatbox</a>
   </div>
-  <div>
-    <a href="#">{{ request.user.username }}</a>
+  <div> 
+    <a href="#">{{ request.user.username }}</a> 
     <a href="{% url 'logout' %}"> Logout </a>
   </div>
   {% elif request.user|has_group:"Paitent" %}
@@ -35,7 +35,7 @@
     <a href="{% url 'serch_psychologist' %}">Search Phychologist</a>
     <a href="{% url 'view_blogs' %}">Blogs</a>
     <a href="#">Paitent Setting</a> 
-    <a href="#">Personality test</a>
+    <a href="{% url 'personality' %}">Personality test</a>
   </div>
   <div>
     <a href="#">{{ request.user.username }}</a>
@@ -46,7 +46,7 @@
     <a href="{% url 'index' %}" class="">Home</a>
     <a href="{% url 'serch_psychologist' %}">Search Phychologist</a>
     <a href="{% url 'view_blogs' %}">Blogs</a>
-    <a href="#">Personality test</a>
+    <a href="{% url 'personality' %}">Personality test</a>
   </div>
   <div>
     <a href="{% url 'signup_psychologist' %}">Become Psychologist </a>
